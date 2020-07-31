@@ -19,7 +19,6 @@ function Display () {
         Tic-Tac-🤖
       </div>  
       <div className="links">by <a href="https://eeshashetty.github.io" target="_blank" rel="noopener noreferrer">@eeshashetty</a></div>
-      <div className="msg">~ the first move takes a while to load, pls bear with it ~</div>
       </div>
     );
   }
