@@ -15,7 +15,14 @@ class TicTacToe extends Component {
 
     updateBot() {
       let newGrid = [...this.state.grid]
-      let pos = bestMove(newGrid)
+      let first = newGrid.filter(val => val==="").length === newGrid.length-1
+      let pos = 0
+      if(first)
+      {pos = Math.floor(Math.random() * 9)}
+      else {
+        pos = bestMove(newGrid)
+      }
+      console.log("*")
       newGrid[pos] = 'O'
       let full = this.checkRes(newGrid)
       this.setState({grid: newGrid, x: true, full: full})
@@ -40,6 +47,7 @@ class TicTacToe extends Component {
 
     handleClick(pos) {
       if (this.state.grid[pos]==="" && this.state.result===null) {
+      
       let val = this.state.x?'X':'O'
       
       let grid = this.state.grid
