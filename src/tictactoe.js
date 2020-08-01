@@ -18,7 +18,7 @@ class TicTacToe extends Component {
       let first = newGrid.filter(val => val==="").length === newGrid.length-1
       let pos = 0
       if(first)
-      {pos = Math.floor(Math.random() * 9)}
+      {pos = bestMove(newGrid, 3)}
       else {
         pos = bestMove(newGrid)
       }

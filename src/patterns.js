@@ -55,6 +55,10 @@ function checkscore(grid) {
         value = -10
     }
     
+    if (check(grid).res === 'D') {
+        value = -1
+    }
+
     if (check(grid).res === 'O') {
         value = 10
     }
