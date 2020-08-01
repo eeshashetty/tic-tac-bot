@@ -8,9 +8,9 @@ function gameOver(board) {
     return true
 }
 
-function minimax(board, depth, maxMode, max_depth) {
+function minimax(board, depth, maxMode, alpha, beta) {
     let value = checkscore(board)
-
+    
     if (value === 10 || value === -10) {
         return value
     }
@@ -19,16 +19,12 @@ function minimax(board, depth, maxMode, max_depth) {
         return 0
     }
 
-    if(depth > max_depth) {
-        return 0
-    }
-
     if (maxMode) {
         let bestVal = -Infinity
         for (let i = 0; i < board.length; i++) {
             if (board[i] === "") {
                 board[i] = "O"
-                value = minimax(board, depth + 1, false, max_depth)
+                value = minimax(board, depth + 1, false)
                 bestVal = Math.max(bestVal, value)
                 board[i] = ""
             }
@@ -42,8 +38,9 @@ function minimax(board, depth, maxMode, max_depth) {
         for (let i = 0; i < board.length; i++) {
             if (board[i] === "") {
                 board[i] = "X"
-                value = minimax(board, depth + 1, true, max_depth)
+                value = minimax(board, depth + 1, true)
                 bestVal = Math.min(bestVal, value)
+                beta = Math.min(beta, bestVal)
                 board[i] = ""
             }
         }
@@ -52,24 +49,23 @@ function minimax(board, depth, maxMode, max_depth) {
     }
 }
 
-function bestMove(board, max_depth=Infinity) {
+function bestMove(board) {
     let bestVal = -Infinity
     let bestMove = -1
     let moveVal = -Infinity
 
     for (let i = 0; i < board.length; i++) {
-
-        if (board[i] !== "") { continue }
+    if (board[i] === "") {
 
         board[i] = "O"
-        moveVal = minimax(board, 0, false, max_depth)
+        moveVal = minimax(board, 0, false)
         board[i] = ""
         if (moveVal > bestVal) {
             bestVal = moveVal
             bestMove = i
         }
 
-
+        }
     }
 
     console.log(`Best Move is to Position ${bestMove}`)
@@ -78,6 +74,5 @@ function bestMove(board, max_depth=Infinity) {
     return bestMove
 }
 
-// bestMove(["O", "", "", "", "X", "O", "X", "", ""])
-
+bestMove(["X", "", "O", "", "X", "", "", "", ""])
 module.exports = bestMove
